@@ -2,7 +2,7 @@
   <header>
     <nav>
       <ul>
-        <li><router-link to="/" exact-active-class="is-selected">Top</router-link></li>
+        <li><router-link to="/" exact-active-class="is-selected">Qiita Tag Search</router-link></li>
       </ul>
     </nav>
   </header>
@@ -26,6 +26,7 @@ header {
       li {
         font-size: 13px;
         line-height: 1.2;
+        font-weight: bold;
         margin-right: 20px;
         &:last-child {
           margin-right: 0;
