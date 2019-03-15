@@ -1,13 +1,16 @@
 <template>
   <section>
     <div class="search_area">
-      <input id="target" type="text" v-model="tag" v-on:input="filterTag()" name="" value="" placeholder="tag search">
+      <div class="input">
+        <input id="search_field" type="text" v-model="tag" name="" placeholder="tag search">
+        <input type="button" v-on:click="filterTag()" name="" value="search">
+      </div>
       <nav class="recommend">
         <p>Recommend:</p>
         <ul>
-          <li><a v-on:click="placeInput()" href="javascript:void(0);">html</a></li>
-          <li><a v-on:click="placeInput()" href="javascript:void(0);">css</a></li>
-          <li><a v-on:click="placeInput()" href="javascript:void(0);">javascript</a></li>
+          <li v-for="(recommendTag,index) in recommendTags" :key="index">
+            <a href="javascript:void(0);" @click="placeInput" :data-tag="recommendTag">{{recommendTag}}</a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -32,7 +35,8 @@ export default {
       posts: [],
       loading: false,
       error: false,
-      tag: ''
+      tag: 'vue.js',
+      recommendTags: ['html','css','javascript','php']
     }
   },
   created: function(){
@@ -66,7 +70,9 @@ export default {
       });
     },
     placeInput: function(event) {
-      document.getElementById('target').value = 'SYNCER';
+      const clickedTag = event.currentTarget.getAttribute('data-tag'); // クリックしたタグの取得
+      document.getElementById('search_field').value = clickedTag; // クリックしたタグをinputに入れる
+      this.tag = clickedTag; // クリックしたタグを `this.tag` に定義
     }
   }
 }
@@ -77,24 +83,36 @@ export default {
   margin-top: 40px;
 }
 .search_area {
-  input {
-    font-size: 12px;
-    line-height: 1;
-    padding: 6px 8px;
-    box-sizing: border-box;
-    &[type="text"] {
-      background: #fff;
-      border: #ccc 1px solid;
-      color: #333;
-      width: 100%;
+  .input {
+    display: flex;
+    input {
+      display: block;
+      font-size: 12px;
+      line-height: 1;
+      padding: 5px 8px;
+      box-sizing: border-box;
+      &[type="text"] {
+        background: #fff;
+        border: #ddd 1px solid;
+        color: #333;
+        margin-right: 10px;
+      }
+      &[type="button"] {
+        background: #333;
+        border: #333 1px solid;
+        color: #fff;
+        &:hover {
+          cursor: pointer;
+          background: #000;
+        }
+      }
     }
   }
   .recommend {
     display: flex;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 15px;
     p {
-      color: #333;
       font-size: 12px;
       line-height: 1;
       margin-right: 10px;
