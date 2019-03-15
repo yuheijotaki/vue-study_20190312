@@ -159,6 +159,10 @@ export default {
       color: #333;
       text-decoration: none;
       border-bottom: #333 1px dotted;
+      &:hover {
+        color: #000;
+        border-bottom: #000 1px dotted;
+      }
     }
   }
 }
